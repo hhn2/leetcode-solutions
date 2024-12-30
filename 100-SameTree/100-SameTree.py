@@ -5,14 +5,26 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
-        if not p and not q:
-            return True
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
         
-        if not p or not q:
-            return False
+        depth = 0
+        q = deque([root])
         
-        if p.val != q.val:
-            return False
+        while q:
+            for i in range(len(q)):
+                node = q.popleft()
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+            
+            depth += 1
         
-        return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+        return depth    
+        
+        
+
+        
+
