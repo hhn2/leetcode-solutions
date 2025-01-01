@@ -11,6 +11,10 @@
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
+
+        if (!head || !head->next){
+            return true;
+        }
         std::deque<int> myDeque;
         for (ListNode* i = head; i != nullptr; i = i->next){
             myDeque.push_back(i->val);
