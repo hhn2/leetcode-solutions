@@ -11,27 +11,32 @@
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
+        if (!head || !head->next) return true;
 
-        if (!head || !head->next){
-            return true;
-        }
-        std::deque<int> myDeque;
-        for (ListNode* i = head; i != nullptr; i = i->next){
-            myDeque.push_back(i->val);
-        }
-        while(true){
-            if(myDeque.size() == 1 || myDeque.size() == 0){
-                return true;
-            }
-            if (myDeque.back() == myDeque.front() ){
-                myDeque.pop_front();
-                myDeque.pop_back();
-            }
-            else{
-                return false;
-            }
+        ListNode *slow = head, *fast = head, *prev = nullptr, *temp = nullptr;
+
+        // Finding the middle point
+        while (fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
         }
 
-        return 0;
+        // Reversing the second half
+        while (slow) {
+            temp = slow->next;
+            slow->next = prev;
+            prev = slow;
+            slow = temp;
+        }
+
+        // Compare two halves
+        ListNode *left = head, *right = prev;
+        while (right) {
+            if (left->val != right->val) return false;
+            left = left->next;
+            right = right->next;
+        }
+
+        return true;
     }
 };
