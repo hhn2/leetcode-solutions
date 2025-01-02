@@ -1,23 +1,42 @@
 class Solution {
 public:
-    int firstUniqChar(std::string s) {
-        // Step 1: Count the frequency of each character
-        std::unordered_map<char, int> charCount;
-        for (char c : s) {
-            charCount[c]++;
+    // Function to check if a character exists in the map
+    int contains(std::map<int, char>& myMap, char myChar) {
+        for (auto it = myMap.begin(); it != myMap.end(); it++) {
+            if (it->second == myChar) {
+                return it->first; // Return the key (index)
+            }
         }
+        return -1; // Return -1 if not found
+    }
 
-        // Step 2: Find the first character with a count of 1
+    int firstUniqChar(std::string s) {
+        std::map<int, char> myMap;
+        std::set<char> repeated; // Track characters that have been repeated
+
+        // Populate the map with unique characters
         for (int i = 0; i < s.length(); i++) {
-            if (charCount[s[i]] == 1) {
-                return i; // Return the index of the first unique character
+            // Skip if the character is already marked as repeated
+            if (repeated.find(s[i]) != repeated.end()) {
+                continue;
+            }
+
+            int existingIndex = contains(myMap, s[i]);
+            if (existingIndex == -1) {
+                // Add character to the map with its index as the key
+                myMap[i] = s[i];
+            } else {
+                // Remove character from the map if it's repeated
+                myMap.erase(existingIndex);
+                repeated.insert(s[i]); // Mark as repeated
             }
         }
 
-        // If no unique character exists, return -1
-        return -1;
-    }
-    
+        // Find the first unique character by iterating over the map
+        if (!myMap.empty()) {
+            return myMap.begin()->first; // The first key in the map
+        }
 
-    
+        return -1; // No unique character found
+    }
 };
