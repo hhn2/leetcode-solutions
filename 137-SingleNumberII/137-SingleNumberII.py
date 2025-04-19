@@ -1,20 +1,28 @@
-# Last updated: 4/19/2025, 5:35:51 PM
+# Last updated: 4/19/2025, 5:46:32 PM
 class Solution:
-    def singleNumber(self, nums):
-        ans = 0
-
+    def singleNumber(self, nums: list[int]) -> int:
+        # Initialize array to count bits (32 bits for integers)
+        bits = [0] * 32
+        
+        # Count the bits at each position
+        for num in nums:
+            # Handle negative numbers by converting to 32-bit representation
+            n = num & 0xFFFFFFFF if num < 0 else num
+            
+            for i in range(32):
+                if (n >> i) & 1:
+                    bits[i] += 1
+                    bits[i] %= 3
+        
+        # Reconstruct the result
+        result = 0
         for i in range(32):
-            bit_sum = 0
-            for num in nums:
-                # Convert the number to two's complement representation to handle large test case
-                if num < 0:
-                    num = num & (2**32-1)
-                bit_sum += (num >> i) & 1
-            bit_sum %= 3
-            ans |= bit_sum << i
-
-        # Convert the result back to two's complement representation if it's negative to handle large test case
-        if ans >= 2**31:
-            ans -= 2**32
-
-        return ans
+            if bits[i]:
+                result |= (1 << i)
+        
+        # Handle negative numbers (if the 31st bit is set)
+        if bits[31]:
+            # Convert back to negative in Python
+            result = result - (1 << 32)
+            
+        return result
