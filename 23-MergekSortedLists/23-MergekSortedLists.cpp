@@ -1,4 +1,4 @@
-// Last updated: 5/20/2025, 12:16:16 AM
+// Last updated: 5/20/2025, 12:18:24 AM
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -15,8 +15,13 @@ class Solution {
 public:
 
     ListNode* mergetwo(ListNode* first, ListNode* second){
-        ListNode* toreturn = new ListNode;
-        if ((first) || (second)){
+        ListNode mynode;
+        ListNode* toreturn = &mynode;
+
+        if ((!first) && (!second)){
+            return nullptr;
+        }
+
         ListNode* current1 = first;
         ListNode* current2 = second;
         ListNode* currentret = toreturn;
@@ -50,8 +55,7 @@ public:
         return toreturn->next;
         }
 
-        return nullptr;
-    }
+
 
     ListNode* mergeKLists(vector<ListNode*>& lists) {
         if (lists.size()== 0 ){
