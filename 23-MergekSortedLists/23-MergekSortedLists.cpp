@@ -1,4 +1,4 @@
-// Last updated: 5/20/2025, 12:13:56 AM
+// Last updated: 5/20/2025, 12:15:43 AM
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -29,13 +29,11 @@ public:
             }
             else if (!current1){
                 currentret->next = current2;
-                current2 = current2->next;
-                currentret = currentret->next;
+                break;
             }
             else if (!current2){
                 currentret->next = current1;
-                current1 = current1->next;
-                currentret = currentret->next;
+                break;
             }
             else if ((current2->val <= current1-> val)){
                 currentret->next = current2;
