@@ -1,4 +1,4 @@
-// Last updated: 5/20/2025, 12:18:24 AM
+// Last updated: 5/20/2025, 12:20:34 AM
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -58,16 +58,16 @@ public:
 
 
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        if (lists.size()== 0 ){
-            return nullptr;
+    if (lists.empty()) return nullptr;
+    
+    int interval = 1;
+    while (interval < lists.size()) {
+        for (int i = 0; i + interval < lists.size(); i += interval * 2) {
+            lists[i] = mergetwo(lists[i], lists[i + interval]);
         }
-        if (lists.size() == 1){
-            return lists[0];
-        }
-        ListNode* todelete = lists[1];
-        ListNode* replacement = mergetwo(lists[0], lists[1]);
-        lists.erase(lists.begin() + 1);
-        lists[0] = replacement;
-        return mergeKLists(lists);
+        interval *= 2;
     }
+    
+    return lists[0];
+}
 };
