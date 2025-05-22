@@ -1,4 +1,4 @@
-// Last updated: 5/22/2025, 5:31:32 PM
+// Last updated: 5/22/2025, 5:32:24 PM
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -38,9 +38,9 @@ public:
             }
             q.pop();
             }
-             vector<int> svv = sv;
-        v.push_back(svv);
-        sv.clear();
+
+        v.push_back(sv);
+
 
         }
        return v;
