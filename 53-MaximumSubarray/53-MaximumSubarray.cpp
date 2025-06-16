@@ -1,46 +1,36 @@
-// Last updated: 6/15/2025, 9:09:46 PM
+// Last updated: 6/15/2025, 9:10:48 PM
 class Solution {
 public:
-    int fixedi(vector<int>& nums){
-        int maxx = nums[0];
-        int currsum = nums[0];
-        for (int i = 1; i < nums.size(); i ++){
-            currsum += nums[i];
-            if (currsum > maxx){
-                maxx = currsum;
-            }
-        }
-        return maxx;
 
-        
+   int fixedi(vector<int>& nums, int l, int r) {
+    int maxx = INT_MIN, curr = 0;
+    for (int i = l; i <= r; ++i) {
+        curr += nums[i];
+        maxx = max(maxx, curr);
     }
-    int fixedj(vector<int>&nums){
-        int maxx = nums[nums.size()-1];
-        int currsum = nums[nums.size()-1];
-        for (int i = nums.size()-2; i >= 0; i--){
-            currsum += nums[i];
-            if (currsum > maxx){
-                maxx=currsum;
-            }
-        }
-        return maxx;
+    return maxx;
+}
 
+int fixedj(vector<int>& nums, int l, int r) {
+    int maxx = INT_MIN, curr = 0;
+    for (int i = r; i >= l; --i) {
+        curr += nums[i];
+        maxx = max(maxx, curr);
     }
-     int maxSubArray(vector<int>& nums) {
-        if (nums.size() == 1){
-            return nums[0]; // fix: should return the element, not 0
-        }
+    return maxx;
+}
 
-        int mid = nums.size() / 2;
+int helper(vector<int>& nums, int l, int r) {
+    if (l == r) return nums[l];
+    int mid = (l + r) / 2;
+    int s1 = helper(nums, l, mid);
+    int s2 = helper(nums, mid + 1, r);
+    int s3 = fixedj(nums, l, mid) + fixedi(nums, mid + 1, r);
+    return max({s1, s2, s3});
+}
 
-        // split left and right subarrays
-        vector<int> left(nums.begin(), nums.begin() + mid);
-        vector<int> right(nums.begin() + mid, nums.end());
+int maxSubArray(vector<int>& nums) {
+    return helper(nums, 0, nums.size() - 1);
+}
 
-        int s1 = maxSubArray(left);
-        int s2 = maxSubArray(right);
-        int s3 = fixedj(left) + fixedi(right);
-
-        return max({s1, s2, s3});
-    }
 };
