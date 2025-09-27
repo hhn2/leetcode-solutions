@@ -1,4 +1,4 @@
-# Last updated: 9/27/2025, 7:39:22 PM
+# Last updated: 9/27/2025, 7:49:32 PM
 from math import gcd
 from collections import defaultdict
 
@@ -12,7 +12,6 @@ class Solution:
 
         for i in range(n):
             slopes = defaultdict(int)
-            same_point = 1  
             curr_max = 0
 
             for j in range(i + 1, n):
@@ -37,6 +36,7 @@ class Solution:
                 slopes[(dx, dy)] += 1
                 curr_max = max(curr_max, slopes[(dx, dy)])
 
-            result = max(result, curr_max + same_point)
+            result = max(result, curr_max + 1)
 
         return result
+
