@@ -1,4 +1,4 @@
-// Last updated: 11/8/2025, 3:22:15 PM
+// Last updated: 11/8/2025, 4:09:10 PM
 class Solution {
 public:
     string convert(string s, int numRows) {
@@ -6,51 +6,40 @@ public:
         double cycles = s.length() / double(2 * numRows - 2);
         int numCycles = ceil(cycles);
         int numCols = numCycles * (numRows - 1);
+         
+         vector<string> myVec(numRows);
 
-        vector<vector<char>> my2DVector(numRows, vector<char>(numCols, ' '));
-
-        bool isFullCol = true;
-
-        int i = 0;  // col
-        int j = 0;  //row
+         int i = 0; // rows
+         
+        bool isVertical = true;
         int t = 0;
-
-        while ( t < s.length()  ){
-            if (isFullCol){
-                while ( j < numRows && t < s.length()){
-                my2DVector[j][i] = s[t];
+        while( t < s.length()){
+            if(isVertical){
+                while(i < numRows && t < s.length()){
+                myVec[i]+=(s[t]);
                 t++;
-                j++;
+                i++;
+
                 }
-                i++;
-                isFullCol = false;
-                j -= 2;
-                
-
+                isVertical = false;
+                i -= 2;
             }
-            
-            else{for (int w = 0; w < numRows - 2 && t < s.length(); w++){
-                
-                my2DVector[j][i] = s[t];
-                t++;
-                i++;
-                j--;
+            else{
+                for (int q = 0; q < numRows - 2 && t < s.length(); q++){
+                    myVec[i]+=(s[t]);
+                    t++;
+                    i--;
+                }
+                isVertical = true;
             }
-            isFullCol = true;
-            }
-        
-            
 
         }
 
-        string toReturn;
-        for (int q = 0; q < numRows; q++){
-            for (int r = 0;  r < numCols; r++){
-            if( my2DVector[q][r] != ' '){
-                toReturn +=  my2DVector[q][r];
-            }
-            }
+            string toReturn;
+        for (int n = 0; n < numRows; n++){
+            toReturn += myVec[n];
         }
+
         return toReturn;
     }
 };
