@@ -1,12 +1,12 @@
-# Last updated: 11/8/2025, 4:12:11 PM
+# Last updated: 11/8/2025, 8:22:37 PM
 class Solution:
     def convert(self, s: str, numRows: int) -> str:
         if numRows == 1:
             return s
         
-        cycles = len(s) / (2 * numRows - 2)
-        numCycles = math.ceil(cycles)
-        numCols = numCycles * (numRows - 1)
+        # cycles = len(s) / (2 * numRows - 2)
+        # numCycles = math.ceil(cycles)
+        # numCols = numCycles * (numRows - 1)
         
         myVec = [''] * numRows
         
@@ -34,3 +34,5 @@ class Solution:
                 isVertical = True
         
         return ''.join(myVec)
+
+        
