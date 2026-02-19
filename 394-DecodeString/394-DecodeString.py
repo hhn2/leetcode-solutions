@@ -1,0 +1,24 @@
+# Last updated: 2/19/2026, 1:35:02 PM
+class Solution(object):
+    def decodeString(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        stack = []
+
+        for i in range(len(s)):
+            if s[i] != "]":
+                stack.append(s[i])
+            else:
+                substr = ""
+                while stack[-1] != "[":
+                    substr = stack.pop() + substr
+                stack.pop()
+
+                k = ""
+                while stack and stack[-1].isdigit():
+                    k=stack.pop() + k
+                stack.append(int (k) * substr)
+
+        return "".join(stack)
