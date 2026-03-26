@@ -1,4 +1,4 @@
-// Last updated: 3/26/2026, 11:11:38 AM
+// Last updated: 3/26/2026, 11:12:31 AM
 1class Solution {
 2public:
 3    int removeDuplicates(vector<int>& nums) {
@@ -10,34 +10,27 @@
 9        int pos = 1;
 10        for (int i = 1; i  < nums.size(); i++){
 11
-12            //3rd or moreth occurrence of the same 
-13            if(prev == nums[i] && count == 2){
-14                continue;
-15                cout<<"third or moreth of"<< nums[i];
-16    
-17            }
-18            //1st or 2nd occurrence
-19            else if (prev==nums[i]){
-20                count++;
-21                nums[pos] = nums[i];
-22                pos++;
-23                cout<<"first or second of" <<nums[i];
-24            }
-25            //different num
-26            else{
-27                count = 1;
-28                prev = nums[i];
-29                nums[pos] = nums[i];
-30                pos++;
-31                cout<<"new num"<< nums[i];
-32
-33            }
-34        }
-35
-36        return pos;
-37
-38        
-39    }
-40
-41
-42};
+12            if(prev == nums[i] && count == 2){
+13                continue;
+14            }
+15            else if (prev==nums[i]){
+16                count++;
+17                nums[pos] = nums[i];
+18                pos++;
+19            }
+20            else{
+21                count = 1;
+22                prev = nums[i];
+23                nums[pos] = nums[i];
+24                pos++;
+25
+26            }
+27        }
+28
+29        return pos;
+30
+31        
+32    }
+33
+34
+35};
